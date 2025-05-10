@@ -1,0 +1,95 @@
+{% extends 'admin/base_site.html' %}
+{% block content %}
+
+
+
+<h1>THỐNG KÊ THÔNG TIN HÌNH TRONG MỖI ALBUM</h1>
+
+<ul>
+    {% for s in stats %}
+    <li><strong>{{ s.Name }}: </strong> {{ s.counter }} </li>
+    {% endfor %}
+</ul>
+
+<div style="width:50%;">
+     <canvas id="myChart1"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    let data = [];
+    let labels = [];
+    {% for s in stats %}
+        data.push({{ s.counter }});
+        labels.push('{{s.id_customer_bt_id}}');
+    {% endfor %}
+    window.onload = function() {
+        const ctx = document.getElementById('myChart1');
+
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: '{{labels}}',
+            data: data,
+            borderWidth: 1,
+            backgroundColor: ['red', 'green', 'blue', 'gold', 'brown']
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    }
+</script>
+<h1>THỐNG KÊ THÔNG TIN NGƯỜI ĐÃ ĐẶT CHUYẾN ĐI</h1>
+
+<ul>
+    {% for s in statss %}
+    <li><strong>{{ s.id }}: </strong>{{s.FirstName_BookTour}} {{s.LastName_BookTour}} : {{ s.counter }} </li>
+    {% endfor %}
+</ul>
+
+<div style="width:50%;">
+     <canvas id="myChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    let data = [];
+    let labels = [];
+    {% for s in statss %}
+        data.push({{ s.counter }});
+        labels.push('{{s.FirstName_BookTour}}' + '{{s.LastName_BookTour}}');
+    {% endfor %}
+    window.onload = function() {
+        const ctx = document.getElementById('myChart');
+
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: '# Số lượng',
+            data: data,
+            borderWidth: 1,
+            backgroundColor: ['red', 'green', 'blue', 'gold', 'brown']
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    }
+</script>
+{% endblock %}
+
