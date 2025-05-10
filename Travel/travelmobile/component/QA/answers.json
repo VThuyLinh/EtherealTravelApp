@@ -1,0 +1,303 @@
+[
+    {
+        "answer": "Núi/rừng, Du lịch khám phá tự nhiên, mình muốn trải nghiệm các trò chơi mạo hiểm, mình muốn tìm hiểu về các loài động vật, mình muốn tìm hiểu về các loài động vật/thực vật hoang dã, Mình muốn trải nghiệm các hoạt động gần gũi với thiên nhiên(đi bộ đường dài, leo núi, cắm trại, chèo thuyền kayak,...), Du lịch với gia đình, Có người già, Nhà hàng sang trọng, Khách sạn 5 sao, Du lịch sang trọng",
+        "label": 
+        [
+            {
+             "id":1,
+             "name":"Vườn Quốc gia Cát Tiên (Đồng Nai)",
+             "description":"Vườn quốc gia Cát Tiên là một khu rừng nhiệt đới nguyên sinh với hệ sinh thái đa dạng, phong phú.Đây là nơi sinh sống của nhiều loài động vật quý hiếm như tê giác Java, gấu chó, vượn đen má vàng, và nhiều loài chim đặc hữu.",
+             "Hoạt động":
+             [
+                {
+                    "id":1,
+                    "content":"Đi bộ đường dài,leo núi, chèo thuyền kayak, đạp xe địa hình"
+                },
+                {
+                    "id":2,
+                    "content":"Tham quan Trung tâm Cứu hộ Gấu, nơi bạn có thể tìm hiểu về các loài gấu và công tác bảo tồn."
+                }
+            ],
+             "restaurant":
+             [
+                {
+                  "id":1,
+                  "description":[{
+                    "content":"Đây thường là các nhà hàng thuộc các khu nghỉ dưỡng 4-5 sao, phục vụ khách du lịch cao cấp.",
+                    "id":1
+                  },{
+                    "content":"Thực đơn đa dạng, kết hợp giữa ẩm thực địa phương và quốc tế, chú trọng vào nguyên liệu tươi ngon và trình bày đẹp mắt.",
+                    "id":2
+                  }],
+                  "name":"Nhà hàng tại các khu nghỉ dưỡng cao cấp trong vườn quốc gia",
+                  "price":"Do đặc thù vị trí và dịch vụ cao cấp, giá bữa ăn tại đây thường dao động từ 500.000 VNĐ đến 1.500.000 VNĐ/người, tùy thuộc vào món ăn và loại hình dịch vụ"
+                },
+                {
+                  "id":2,
+                  "description": [{
+                    "content":"Biên Hòa là một thành phố lớn, có nhiều nhà hàng sang trọng phục vụ nhiều đối tượng khách hàng.Các nhà hàng này có thực đơn đa dạng, từ món ăn Việt Nam truyền thống đến ẩm thực quốc tế.",
+                    "id":1
+                  },{
+                    "content":"Không gian nhà hàng được đầu tư kỹ lưỡng, tạo cảm giác thoải mái và sang trọng.",
+                    "id":2
+                  }],
+                  "name":"Các nhà hàng sang trọng ở thành phố Biên Hòa (cách Cát Tiên khoảng 2-3 giờ di chuyển).",
+                  "price":"Tại Biên Hòa, bạn có thể tìm thấy các nhà hàng sang trọng với mức giá từ 300.000 VNĐ đến 1.000.000 VNĐ/người."
+                }
+              ],
+             "stay": 
+             [
+                {
+                    "id": 1,
+                    "name": "Các khách sạn 5 sao ở Biên Hòa: The Mira Hotel, Aurora Hotel Plaza.",
+                    "description":[{
+                        "id":1,
+                        "content":"Đây là các khách sạn cao cấp, cung cấp đầy đủ tiện nghi và dịch vụ 5 sao, bao gồm hồ bơi, spa, nhà hàng sang trọng, phòng tập gym, v.v."
+                    },
+                    {
+                        "id":2,
+                        "content":"Phòng ốc rộng rãi, thiết kế hiện đại, nội thất cao cấp."
+                    }],
+                    "price":"Giá phòng dao động từ 1.200.000 VNĐ đến 2.500.000 VNĐ/đêm, tùy thuộc vào loại phòng và thời điểm đặt phòng."
+                    
+                },
+                {
+                    "id": 2,
+                    "name": "Nam Cat Tien Jungle Lodge: Khu nghỉ dưỡng cao cấp nằm ngay trong vườn quốc gia, cung cấp các dịch vụ sang trọng và tiện nghi.",
+                    "description":[{
+                        "id":1,
+                        "content":"Khu nghỉ dưỡng cao cấp nằm trong Vườn quốc gia Cát Tiên, mang đến trải nghiệm gần gũi với thiên nhiên."
+                    },
+                    {
+                        "id":2,
+                        "content":"Các bungalow và villa riêng tư, thiết kế sang trọng, hòa mình vào không gian rừng xanh.Cung cấp các dịch vụ cao cấp như spa, nhà hàng, hồ bơi, các hoạt động khám phá thiên nhiên."
+                    }],
+                    "price":"Giá phòng dao động từ 2.000.000 VNĐ đến 4.000.000 VNĐ/đêm, tùy thuộc vào loại phòng và thời điểm đặt phòng."
+                },
+                {
+                    "id": 3,
+                    "name": "River Lodge Cat Tien: Khu nghỉ dưỡng với các bungalow riêng tư, view sông Đồng Nai.",
+                    "description":[{
+                        "id":1,
+                        "content":"Khu nghỉ dưỡng cao cấp nằm trong Vườn quốc gia Cát Tiên, mang đến trải nghiệm gần gũi với thiên nhiên."
+                    },
+                    {
+                        "id":2,
+                        "content":"Các bungalow và villa riêng tư, thiết kế sang trọng, hòa mình vào không gian rừng xanh.Cung cấp các dịch vụ cao cấp như spa, nhà hàng, hồ bơi, các hoạt động khám phá thiên nhiên."
+                    }],
+                    "price":"Giá phòng dao động từ 1.500.000 VNĐ đến 3.000.000 VNĐ/đêm, tùy thuộc vào loại phòng và thời điểm đặt phòng."
+                }
+             ],
+             "transport":
+             [
+                {
+                    "id":1,
+                    "detail":"Ô tô riêng hoặc thuê xe: Đây là phương tiện thuận tiện nhất để di chuyển đến Cát Tiên từ Thành phố Hồ Chí Minh hoặc các tỉnh lân cận."
+                },
+                {
+                    "id":2,
+                    "detail":"Xe khách: Có các tuyến xe khách từ Thành phố Hồ Chí Minh đến ngã ba Tà Lài, sau đó đi xe ôm hoặc taxi vào Cát Tiên."
+                }
+             ],
+            "caution":"Lưu ý: Nên chọn các tuyến đi bộ và hoạt động phù hợp với sức khỏe của người lớn tuổi."
+            },
+            {
+             "id":2,
+             "name":"Du lịch sinh thái Madagui - Lâm Đồng",
+             "description":"Khu du lịch sinh thái Madagui: Khu rừng nguyên sinh với nhiều thác nước, suối và hồ tự nhiên.",
+             "Hoạt động":
+             [
+                {
+                    "id":1,
+                    "content":"Zipline, leo núi, chèo thuyền kayak, đi xe địa hình ATV."
+                },
+                {
+                    "id":2,
+                    "content":"Cắm trại, đi bộ đường dài, câu cá."
+                },
+                {
+                    "id":3,
+                    "content":"Tắm thác"
+                }
+            ],
+            "restaurant":
+             [
+                {
+                  "id":1,
+                  "description":[{
+                    "content":"Nằm trong khu nghỉ dưỡng Ana Mandara Villas Dalat Resort & Spa, nhà hàng tại đây mang đến không gian ấm cúng, sang trọng với kiến trúc Pháp cổ điển.",
+                    "id":1
+                  },{
+                    "content":"Nhà hàng nổi tiếng với thực đơn đa dạng, kết hợp giữa ẩm thực Pháp tinh tế và các món ăn Việt Nam đặc sắc, được chế biến từ nguyên liệu tươi ngon của địa phương.Đặc biệt, điểm nhấn thực sự của nhà hàng đó là hầm rượu, nơi cất giữ bộ sưu tập rượu vang phong phú.",
+                    "id":2
+                  }],
+                  "name":"Nhà hàng Ana Mandara Villas Dalat Resort & Spa",
+                  "price":"Các mức giá có thể giao động từ vài trăm nghìn cho tới vài triệu đồng cho một bữa ăn.(Vì giá các món ăn tại nhà hàng Ana Mandara Villas Dalat Resort & Spa dao động tùy thuộc vào món ăn và thời điểm.)"
+                },
+                {
+                  "id":2,
+                  "description": [{
+                    "content":"Không gian nhà hàng sang trọng, cổ điển, mang đậm phong cách Pháp.Thực đơn nhà hàng tập trung vào các món ăn Pháp truyền thống, được chế biến bởi các đầu bếp tài ba.",
+                    "id":1
+                  },{
+                    "content":"Nhà hàng Le Rabelais của khách sạn là nơi bạn có thể thưởng thức lựa chọn các món ăn Pháp và rượu vang. Nơi đây mở cửa phục vụ bữa sáng, bữa trưa cũng như bữa tối tại đây đáp ứng nhu cầu tuyệt đối cho du khách",
+                    "id":2
+                  }],
+                  "name":"Nhà hàng Le Rabelais (Dalat Palace Hotel)",
+                  "price":"Giá các món ăn tại nhà hàng Le Rabelais khá cao, phù hợp với những thực khách muốn trải nghiệm ẩm thực Pháp cao cấp."
+                }
+              ],
+             "stay": 
+             [
+                {
+                    "id": 1,
+                    "name": "Ana Mandara Villas Dalat Resort & Spa: Khu nghỉ dưỡng biệt thự Pháp cổ điển, sang trọng."
+                },
+                {
+                    "id": 2,
+                    "name": "Dalat Palace Hotel: Khách sạn 5 sao cổ điển, sang trọng, nằm ngay trung tâm thành phố."
+                },
+                {
+                    "id": 3,
+                    "name": "Ladalat Hotel: Khách sạn 5 sao hiện đại, view đẹp."
+                }
+             ],
+             "transport":
+             [
+                {
+                    "id":1,
+                    "detail":"Xe khách: Từ TP. Hồ Chí Minh hoặc Đà Lạt đến Madagui."
+                },
+                {
+                    "id":2,
+                    "detail":"Xe ô tô riêng: Thuận tiện cho gia đình."
+                },
+                {
+                    "id":2,
+                    "detail":"Máy bay: đến sân bay Liên Khương, sẽ gọi taxi đến khu sinh thái"
+                }
+             ],
+            "caution":"Lưu ý: Đà Lạt có nhiều địa hình dốc, nên cần chọn các hoạt động phù hợp với sức khỏe của người lớn tuổi.Nên mang theo giày thể thao và quần áo thoải mái."
+            },
+            {
+                "id":3,
+                "name":"Vịnh Hạ Long - Quảng Ninh",
+                "description":"Vịnh Hạ Long: Kỳ quan thiên nhiên thế giới với hàng ngàn hòn đảo đá vôi.Hang Sửng Sốt, hang Đầu Gỗ, động Thiên Cung: Những hang động kỳ vĩ.Đảo Ti Tốp, đảo Tuần Châu: Các điểm tham quan và vui chơi giải trí.",
+                "Hoạt động":
+                [
+                    {
+                    "id":1,
+                    "content":"Đi du thuyền tham quan vịnh"
+                    },
+                    {
+                    "id":2,
+                    "content":"Chèo thuyền kayak, tham quan hang động."
+                    },
+                    {
+                    "id":3,
+                    "content":"Tắm biển, lặn biển."
+                    },
+                    {
+                    "id":4,
+                    "content":"Ngắm cảnh bình minh và hoàng hôn trên vịnh."
+                    }
+            ],
+            "restaurant":
+             [
+                {
+                  "id":1,
+                  "description":[{
+                    "content":"Nằm trong khách sạn Halong Plaza, nhà hàng Bay View nổi tiếng với không gian sang trọng và tầm nhìn tuyệt đẹp ra vịnh Hạ Long.",
+                    "id":1
+                  },{
+                    "content":"Thực đơn đa dạng, kết hợp giữa ẩm thực Á và Âu, với các món hải sản tươi ngon và đặc sản địa phương.",
+                    "id":2
+                  }],
+                  "name":"Nhà hàng Bay View",
+                  "price":"Khoảng 100.000 - 500.000 VNĐ/món."
+                },
+                {
+                  "id":2,
+                  "description": [{
+                    "content":"Đây là một trong những nhà hàng hải sản nổi tiếng nhất ở Hạ Long, được nhiều du khách yêu thích.",
+                    "id":1
+                  },{
+                    "content":"Không gian rộng rãi, sang trọng, phù hợp cho các buổi tiệc hoặc bữa ăn gia đình.Hải sản tươi sống, được chế biến theo nhiều phong cách khác nhau.",
+                    "id":2
+                  }],
+                  "name":"Nhà hàng Hồng Hạnh 3",
+                  "price":"Nhà hàng Hồng Hạnh 3 có nhiều thực đơn cho du khách lựa chọn từ 250.000k cho tới 3.000.000đ/ khách với các món ăn đặc sản của ẩm thực Hạ Long"  
+                },
+                {
+                    "id":3,
+                    "description": [{
+                      "content":"Nhà hàng Cua Vàng sử dụng các loại hải sản tươi ngon nhất, chế biến hầu hết bằng nồi đất, hứa hẹn mang đến cho thực khách những món ăn hương vị thơm ngon, độc đáo.",
+                      "id":1
+                    }],
+                    "name":"Nhà hàng Cua Vàng Hạ Long",
+                    "price":"Giá tham khảo: khoảng từ 50.000 - 300.000 VNĐ/món."
+                  }
+              ],
+            "stay": 
+                [
+                    {
+                        "id":1,
+                        "description": [{
+                          "content":"Nằm trên đảo Rều, Vinpearl Resort & Spa Hạ Long là một khu nghỉ dưỡng 5 sao sang trọng với kiến trúc độc đáo.",
+                          "id":1
+                        },{
+                            "content":"Các phòng nghỉ và biệt thự đều có tầm nhìn tuyệt đẹp ra vịnh Hạ Long.Tiện nghi cao cấp, bao gồm hồ bơi, spa, nhà hàng, quầy bar, v.v.",
+                            "id":2
+                          }],
+                        "name":"Vinpearl Resort & Spa Hạ Long",
+                        "price":"Giá công bố: 2.691.000 VND. Giá thành viên: 2.421.900 VND"
+                      },
+                      {
+                        "id":2,
+                        "description": [{
+                          "content":"Khách sạn Novotel Hạ Long Bay là một trong những khách sạn 4 sao đạt tiêu chuẩn quốc tế tại Hạ Long.",
+                          "id":1
+                        },{
+                            "content":"Khách sạn này có vị trí đắc địa khi nằm ngay trung tâm Bãi Cháy và gần các địa điểm du lịch nổi tiếng của Hạ Long.Novotel Hạ Long Bay có 225 phòng nghỉ cao cấp với không gian ấm cúng và đầy đủ tiện nghi, trong đó có cả các phòng có ban công hướng vịnh.",
+                            "id":2
+                          }],
+                        "name":"Khách sạn Novotel Hạ Long Bay",
+                        "price":"Giá phòng dao động: Khoảng từ 1.500.000 VNĐ đến 3.500.000 VNĐ/đêm."
+                      },
+                      {
+                        "id":3,
+                        "description": [{
+                          "content":"Khách sạn Wyndham Legend Halong là một khách sạn 5 sao có vị trí đắc địa tại khu Bãi Cháy. Khách sạn này cách Sun World Ha Long Park khoảng 1,5km.",
+                          "id":1
+                        },{
+                            "content":"Wyndham Legend Halong có 217 phòng nghỉ cao cấp và sang trọng, có cả phòng có ban công hướng biển.",
+                            "id":2
+                          }],
+                        "name":"Khách sạn Wyndham Legend Halong:",
+                        "price":"Giá phòng dao động: Khoảng từ 1.600.000 VNĐ đến 4.000.000 VNĐ/đêm."
+                      }
+                ],
+            "transport":
+                [
+                   {
+                       "id":1,
+                       "detail":"Máy bay: Từ TP. Hồ Chí Minh hoặc Đà Nẵng đến sân bay Vân Đồn, sau đó đi xe ô tô đến Hạ Long."
+                   },
+                   {
+                       "id":2,
+                       "detail":"Xe khách: Từ Hà Nội đến Hạ Long."
+                   },
+                   {
+                       "id":3,
+                       "detail":"Du thuyền. Giá: Khoảng 700.000 - 1.350.000 VNĐ/người.Có thể tham khảo(Du Thuyền Ambassador,Du thuyền Capella,Du thuyền Paradise Grand) "
+                   }
+                ],
+               "caution":"Lưu ý: Chuẩn bị thuốc say sóng nếu bạn dễ bị say tàu xe."
+            }
+        ]
+        
+    }
+]
+             
+    
+    

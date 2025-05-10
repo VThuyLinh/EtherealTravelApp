@@ -1,0 +1,26 @@
+[
+    {
+      "id": 1,
+      "ten": "Hạ Long",
+      "moTa": "Vịnh biển tuyệt đẹp với hàng nghìn đảo đá vôi.",
+      "chiPhi": "Trung bình",
+      "loaiHinh": ["biển", "núi"],
+      "monAn": ["hải sản"]
+    },
+    {
+      "id": 2,
+      "ten": "Sapa",
+      "moTa": "Thị trấn vùng cao với cảnh quan núi non hùng vĩ.",
+      "chiPhi": "Rẻ",
+      "loaiHinh": ["núi", "khám phá", "mạo hiểm"],
+      "monAn": ["thắng cố", "đồ nướng"]
+    },
+    {
+      "id": 3,
+      "ten": "Đà Lạt",
+      "moTa": "Thành phố ngàn hoa với khí hậu mát mẻ.",
+      "chiPhi": "Trung bình",
+      "loaiHinh": ["thành phố", "nghỉ dưỡng"],
+      "monAn": ["bánh tráng nướng", "lẩu bò"]
+    }
+  ]
