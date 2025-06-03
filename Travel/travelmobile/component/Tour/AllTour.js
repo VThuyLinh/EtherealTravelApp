@@ -1,24 +1,20 @@
-
-
 import { ImageBackground, RefreshControl, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
-import { ActivityIndicator, Button, Card, Chip, DataTable, Icon, Searchbar, SegmentedButtons, Text} from "react-native-paper";
-import React, { useContext, useState } from "react";
+import { ActivityIndicator, Button, Card, Chip, DataTable, Icon, Searchbar, SegmentedButtons, Text, useTheme} from "react-native-paper";
+import React, { useContext, useState, useCallback, useEffect } from "react";
 import APIs, { endpoints } from "../../config/APIs";
 import moment from "moment";
-import { isCloseToBottom } from "../Utils/util";
-// import DateTimePickerModal from "react-native-modal-datetime-picker";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Image } from "react-native";
 
 import { MyUserContext } from "../../config/context";
-
-import Location from "../Location/Location";
+import { isCloseToBottom } from "../Utils/util";
 import StyleAll from "../../style/StyleAll";
 import StyleTour from "../../style/StyleTour";
 
 const TourPicker = ({ setDepartureTime }) => {
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [selectedDateText, setSelectedDateText] = useState("  Chọn ngày khởi hành bạn muốn tìm");
-    
+    const [selectedDate, setSelectedDate] = useState(null); // State để lưu trữ ngày đã chọn
 
     const showDatePicker = () => {
         setDatePickerVisibility(true);
@@ -30,27 +26,39 @@ const TourPicker = ({ setDepartureTime }) => {
 
     const handleConfirm = (date) => {
         hideDatePicker();
-        const formattedDate = moment(date).format("YYYY-MM-DD"); 
+        const formattedDate = moment(date).format("YYYY-MM-DD");
         setSelectedDateText(formattedDate);
-        setDepartureTime(formattedDate); 
+        setSelectedDate(formattedDate);
+        setDepartureTime(formattedDate);
+    };
+
+    const handleClearDate = () => {
+        setSelectedDate(null);
+        setSelectedDateText("  Chọn ngày khởi hành bạn muốn tìm");
+        setDepartureTime(""); // Xóa ngày khỏi state tìm kiếm
     };
 
     return (
         <View style={styles1.container}>
             <TouchableOpacity style={styles1.dateButton} onPress={showDatePicker}>
-                
-                    <Icon style={styles1.calendarIcon} size={30} source="calendar-month" color={"#008080"} />
-                    <Text>
-                     {selectedDateText}
+                <Icon style={styles1.calendarIcon} size={30} source="calendar-month-outline" color={"black"} />
+                <Text style={{marginLeft:15, fontSize:16}}>
+                       {selectedDateText}
                 </Text>
             </TouchableOpacity>
 
-            {/* <DateTimePickerModal
+            <DateTimePickerModal
                 isVisible={isDatePickerVisible}
-                mode="date" // Chuyển mode thành "date" để chọn ngày
+                mode="date"
                 onConfirm={handleConfirm}
                 onCancel={hideDatePicker}
-            /> */}
+            />
+
+            {selectedDate && (
+                <TouchableOpacity style={styles1.clearButton} onPress={handleClearDate}>
+                    <Text style={{color:"red"}}> Xóa</Text>
+                </TouchableOpacity>
+            )}
         </View>
     );
 };
@@ -59,45 +67,56 @@ const styles1 = StyleSheet.create({
     container: {
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: "center", // Để nút ở giữa (tùy chọn)
+        justifyContent: "space-between", // Để nút xóa ở bên phải
         marginBottom: 5,
+        marginLeft:15
     },
     dateButton: {
         flexDirection: 'row',
-        alignItems: "center", // Giả sử có màu nền cho nút
+        alignItems: "center",
         borderRadius: 5,
         paddingVertical: 10,
         paddingHorizontal: 15,
+        flexGrow: 1, // Để chiếm không gian còn lại
+        marginRight: 10, // Khoảng cách với nút xóa
     },
     calendarIcon: {
         marginRight: 10,
-        marginTop:10
+        marginTop: 10,
     },
     dateText: {
         fontSize: 16,
-        color: '#36454F', // Đen than
+        color: '#36454F',
+    },
+    clearButton: {
+        padding: 5,
+        marginRight:100
     },
 });
 
+
 const Tour = ({ navigation }) => {
     const user = useContext(MyUserContext);
-    const [tour, setTour] = React.useState([]);
-    const [page, setPage] = React.useState(1);
-    const [DeparturePlace, setDeparturePlace] = React.useState("");
-    const [Destination, setDestination] = React.useState("");
-    const [DepartureTime, setDepartureTime] = React.useState("");
-    const [price, setPrice] = React.useState("");
-    const [loading, setLoading] = React.useState(false);
+    const [tour, setTour] = useState([]);
+    const [page, setPage] = useState(1);
+    const [departurePlace, setDeparturePlace] = useState("");
+    const [destination, setDestination] = useState("");
+    const [departureTime, setDepartureTime] = useState("");
+    const [price, setPrice] = useState("");
+    const [loading, setLoading] = useState(false);
     const [hasNextPage, setHasNextPage] = useState(true);
-    const [refreshing, setrefreshing] = React.useState(false);
-   
-    const [value, setValue] = React.useState('Destination');
-    const [q, setQ] = React.useState('');
-    
-    const loadTour = async () => {
+    const [refreshing, setRefreshing] = useState(false);
+
+    const [value, setValue] = useState('Destination');
+    const [q, setQ] = useState('');
+
+    const theme = useTheme(); // Lấy theme hiện tại của react-native-paper
+
+    const loadTour = useCallback(async () => {
         try {
             setLoading(true);
-            const res = await APIs.get(`${endpoints['tour']}?noidi=${DeparturePlace}&noiden=${Destination}&thoigiandi=${DepartureTime}&Price=${price}&page=${page}`);
+            const res = await APIs.get(`${endpoints['tour']}?noidi=${departurePlace}&noiden=${destination}&thoigiandi=${departureTime}&Price=${price}&page=${page}`);
+            console.log("API URL:", `${endpoints['tour']}?noidi=${departurePlace}&noiden=${destination}&thoigiandi=${departureTime}&Price=${price}&page=${page}`); // Kiểm tra URL
             if (res.data && Array.isArray(res.data.results)) {
                 if (page === 1) {
                     setTour(res.data.results);
@@ -109,41 +128,46 @@ const Tour = ({ navigation }) => {
                 setHasNextPage(false); // Nếu không có dữ liệu hợp lệ, coi như hết trang
             }
         } catch (ex) {
-            console.error("Lỗi", ex);
+            console.error("Lỗi khi tải tour", ex);
             setHasNextPage(false);
         } finally {
             setLoading(false);
         }
-    };
+    }, [departurePlace, departureTime, destination, page, price]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         loadTour();
-    }, [DeparturePlace, DepartureTime, Destination, page, price]);
+    }, [departurePlace, departureTime, destination, page, price, loadTour]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         setPage(1);
         setHasNextPage(true);
-    }, [Destination, DeparturePlace, DepartureTime, price]);
+    }, [destination, departurePlace, departureTime, price]);
 
-    const onRefresh = React.useCallback(() => {
-        setrefreshing(true);
+    const onRefresh = useCallback(() => {
+        setRefreshing(true);
         setPage(1);
         setHasNextPage(true);
         loadTour();
         setTimeout(() => {
-            setrefreshing(false);
+            setRefreshing(false);
         }, 1000);
-    }, [DeparturePlace, DepartureTime, Destination, price]);
+    }, [departurePlace, departureTime, destination, price, loadTour]);
 
-    const search = (value, callback) => {
+    const search = (text, searchType) => {
         setPage(1);
-        callback(value);
-        setQ(value);
+        setQ(text);
+        if (searchType === 'Destination') {
+            setDestination(text);
+        } else if (searchType === 'DeparturePlace') {
+            setDeparturePlace(text);
+        } else if (searchType === 'Price') {
+            setPrice(text);
+        }
     };
 
     const loadMore = ({ nativeEvent }) => {
         if (!loading && hasNextPage && isCloseToBottom(nativeEvent)) {
-            
             setPage(prevPage => prevPage + 1);
         } else if (!hasNextPage && isCloseToBottom(nativeEvent)) {
             console.log("Đã tải hết bài đăng.");
@@ -158,9 +182,9 @@ const Tour = ({ navigation }) => {
                 refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
             >
                 {refreshing && (
-                    <View style={styles.loadingContainer}>
+                    <View style={stylesTour.loadingContainer}>
                         <ActivityIndicator size="large" color={'pink'} />
-                        <Text style={styles.loadingText}>Đang làm mới...</Text>
+                        <Text style={stylesTour.loadingText}>Đang làm mới...</Text>
                     </View>
                 )}
                 <View>
@@ -169,14 +193,14 @@ const Tour = ({ navigation }) => {
                         value={q}
                         placeholder="Tìm chuyến đi..."
                         placeholderTextColor="#A9A9A9"
-                        onChangeText={t => value === 'Destination' ? search(t, setDestination) : value === 'DeparturePlace' ? search(t, setDeparturePlace) : search(t, setPrice)}
+                        onChangeText={text => search(text, value)}
                     />
                     <TourPicker setDepartureTime={setDepartureTime} />
                     <SegmentedButtons
                         style={StyleAll.sty}
                         density="small"
                         value={value}
-                        onValueChange={t => { setValue(t); setQ(""); }}
+                        onValueChange={newValue => { setValue(newValue); setQ(""); if (newValue !== 'Price') setPrice(""); if (newValue !== 'DeparturePlace') setDeparturePlace(""); if (newValue !== 'Destination') setDestination(""); }}
                         buttons={[
                             {
                                 value: 'Destination',
@@ -194,6 +218,12 @@ const Tour = ({ navigation }) => {
                                 icon: 'cash-100',
                             },
                         ]}
+                        theme={{
+                            colors: {
+                                primary: '#008080', // Màu xanh đậm bạn muốn
+                                onPrimary: theme.colors.surface, // Màu chữ khi nút được chọn (thường là màu nền)
+                            },
+                        }}
                     />
                 </View>
 
@@ -201,24 +231,24 @@ const Tour = ({ navigation }) => {
                     {tour.map(c =>
                         <Card mode="elevated" style={StyleAll.card} key={c.Id_Tour}>
                             <Card.Content>
-                              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                              <Icon size={30} source="barcode" color="#36454F" />
-                              <Text style={styles.text1}> {c.Id_Tour}</Text>
-                              </View>
-                                
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                    <Icon size={30} source="barcode" color="#36454F" />
+                                    <Text style={stylesTour.text1}> {c.Id_Tour}</Text>
+                                </View>
+
                                 <Text style={StyleAll.text}>{c.Tour_Name}</Text>
                             </Card.Content>
                             <Card.Cover style={StyleAll.imgincard} source={{ uri: `https://res.cloudinary.com/dqcjhhtlm/${c.cover}` }} />
                             <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft:30 }}>
-                            <Icon size={20} source="calendar-month-outline" color="#F4A460" />
-                            <Text style={StyleAll.text2}> {moment(c.DatePost).fromNow()}</Text>
+                                <Icon size={20} source="calendar-month-outline" color="#F4A460" />
+                                <Text style={stylesTour.text2}> {moment(c.DatePost).fromNow()}</Text>
                             </View>
-                           
+
                             <Card.Actions>
                                 {user === null ? <>
-                                    <Text style={styles.text2}>Vui lòng <Text style={[StyleTour.loginn, StyleTour.text1]} onPress={() => navigation.navigate("login")}>đăng nhập</Text> để có những trải nghiệm tốt nhất cùng Ethereal_Travel</Text>
+                                    <Text style={stylesTour.text2}>Vui lòng <Text style={[StyleTour.loginn, StyleTour.text1]} onPress={() => navigation.navigate("login")}>đăng nhập</Text> để có những trải nghiệm tốt nhất cùng Ethereal_Travel</Text>
                                 </> : <>
-                                    <TouchableOpacity onPress={() => navigation.navigate("tourdetail", { 'tour_id': c.id })} key={c.id}><Text style={styles.text3}>Xem thêm <Icon source="island" size={30} color="#666" /></Text></TouchableOpacity>
+                                    <TouchableOpacity onPress={() => navigation.navigate("tourdetail", { 'tour_id': c.id })} key={c.id}><Text style={stylesTour.text3}>Xem thêm <Icon source="island" size={30} color="#666" /></Text></TouchableOpacity>
                                 </>}
                             </Card.Actions>
                         </Card>
@@ -231,7 +261,7 @@ const Tour = ({ navigation }) => {
     );
 };
 
-const styles = StyleSheet.create({
+const stylesTour = StyleSheet.create({
     text1: {
         fontSize: 17,
         fontWeight: 'normal',
@@ -246,7 +276,7 @@ const styles = StyleSheet.create({
     text3: {
         fontSize: 15,
         fontWeight: "bold",
-        color: '#666', 
+        color: '#666',
         fontStyle:"italic",
         marginBottom:20
     },
@@ -259,7 +289,5 @@ const styles = StyleSheet.create({
         color: '#808080',
     },
 });
-
-
 
 export default Tour;

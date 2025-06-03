@@ -19,6 +19,15 @@
       "package": "com.anonymous.travelmobile"
       
     },
-    "sdkVersion": "53.0.0"
+    "sdkVersion": "53.0.0",
+    "plugins": [
+      [
+        "react-native-maps",
+        {
+          "androidGoogleMapsApiKey": "AIzaSyCYyeg1-9NXZzJTe8ZiYYW7qXuN6qR9QjI"
+        }
+      ]
+    ]
+
   }
 }

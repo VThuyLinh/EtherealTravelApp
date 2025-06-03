@@ -17,13 +17,7 @@ const MenuScreen = ({ navigation }) => {
     return (
         <ScrollView style={styles.scrollView}>
             <View style={styles.container}>
-                <Drawer.Section title="Chức năng">
-                    <Drawer.Item
-                        label="Tài khoản"
-                        active={active === 'Account'}
-                        onPress={() => handleItemPress('Account')}
-                        icon={() => <Icon name="account" size={25} />}
-                    />
+                <Drawer.Section title="Các chức năng">
                     <Drawer.Item
                         label="Chuyến đi của tôi"
                         active={active === 'MyTour'}
@@ -38,8 +32,8 @@ const MenuScreen = ({ navigation }) => {
                     />
                     <Drawer.Item
                         label="ChatBot 24/7"
-                        active={active === 'Chat'}
-                        onPress={() => handleItemPress('Chat')}
+                        active={active === 'ChatBot'}
+                        onPress={() => handleItemPress('ChatBot')}
                         icon={() => <Icon name="robot" size={25} />}
                     />
                     <Drawer.Item
@@ -54,11 +48,12 @@ const MenuScreen = ({ navigation }) => {
                         onPress={() => handleItemPress('Location')}
                         icon={() => <Icon name="map-marker" size={25} />}
                     />
+                   
                     <Drawer.Item
                         label="Sổ kỷ niệm"
                         active={active === 'Memory'}
                         onPress={() => handleItemPress('Memory')}
-                        icon={() => <Icon name="map-marker" size={25} />}
+                        icon={() => <Icon name="panorama-variant" size={25} />}
                     />
                     <Drawer.Item
                         label="Khách sạn"
@@ -69,15 +64,15 @@ const MenuScreen = ({ navigation }) => {
                     
                     <Drawer.Item
                         label="Tìm kiếm xung quanh"
-                        active={active === 'Maps'}
-                        onPress={() => handleItemPress('Maps')}
+                        active={active === 'NearBy'}
+                        onPress={() => handleItemPress('NearBy')}
                         icon={() => <Icon name="store-search" size={25} />}
                     />
                     <Drawer.Item
-                        label="Email"
-                        active={active === 'Mail'}
-                        onPress={() => handleItemPress('Mail')}
-                        icon={() => <Icon name="mailbox" size={25} />}
+                        label="Đặt vé xe"
+                        active={active === 'ticket'}
+                        onPress={() => handleItemPress('ticket')}
+                        icon={() => <Icon name="bus-side" size={25} />}
                     />
                     <Drawer.Item
                         label="Du lịch VR"

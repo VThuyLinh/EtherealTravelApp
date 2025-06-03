@@ -157,7 +157,8 @@ const CommentInput = ({ onCommentSubmit }) => {
 const styles = StyleSheet.create({
     container: {
         padding: 10,
-        backgroundColor: '#f0f0f0',
+        backgroundColor: '#FFFAF0',
+        marginTop:20
     },
     imagePreviewContainer: {
         width: 80,
@@ -192,7 +193,7 @@ const styles = StyleSheet.create({
         marginRight: 10,
     },
     sendButton: {
-        backgroundColor: '#3CB371',
+        backgroundColor: '#FFA500',
         paddingVertical: 10,
         paddingHorizontal: 15,
         borderRadius: 5,

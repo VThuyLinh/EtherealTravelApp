@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leaflet Map</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIINfBIJP7GB05mdzkly8ykkiOl+sFhVqdZc="
+        crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20n6qqzJrZgkLTM8s/9LqgeuAc/rfKzFyugolcR4sQo="
+        crossorigin=""></script>
+    <style>
+        body { margin: 0; padding: 0; }
+        #mapid { height: 100vh; width: 100vw; }
+    </style>
+</head>
+<body>
+    <div id="mapid"></div>
+
+    <script>
+        var map = L.map('mapid').setView([16.0, 108.0], 5); // Default to Vietnam center
+
+        // OpenStreetMap tiles - Hoàn toàn miễn phí và không cần API key
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Một số tùy chọn tile layer khác (có thể yêu cầu API key hoặc có giới hạn sử dụng)
+        // L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.png', {
+        //     attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.'
+        // }).addTo(map);
+
+        // L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+        //     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        // }).addTo(map);
+
+
+        var markers = {}; // Object để lưu trữ các marker
+
+        // Hàm để thêm marker
+        function addMarker(id, lat, lng, title) {
+            if (markers[id]) {
+                markers[id].setLatLng([lat, lng]); // Cập nhật vị trí nếu marker đã tồn tại
+                markers[id].getPopup().setContent(title); // Cập nhật popup
+            } else {
+                var marker = L.marker([lat, lng]).addTo(map)
+                    .bindPopup(title);
+                markers[id] = marker;
+
+                // Gửi sự kiện về React Native khi marker được click
+                marker.on('click', function() {
+                    window.ReactNativeWebView.postMessage(JSON.stringify({
+                        type: 'markerClick',
+                        id: id,
+                        lat: lat,
+                        lng: lng,
+                        title: title
+                    }));
+                });
+            }
+        }
+
+        // Hàm để xóa marker
+        function removeMarker(id) {
+            if (markers[id]) {
+                map.removeLayer(markers[id]);
+                delete markers[id];
+            }
+        }
+
+        // Hàm để di chuyển bản đồ đến một tọa độ
+        function panTo(lat, lng, zoom) {
+            map.setView([lat, lng], zoom || map.getZoom());
+        }
+
+        // Lắng nghe tin nhắn từ React Native
+        window.ReactNativeWebView.onMessage = function(event) {
+            var data = JSON.parse(event.data);
+            if (data.type === 'addMarker') {
+                addMarker(data.id, data.lat, data.lng, data.title);
+            } else if (data.type === 'removeMarker') {
+                removeMarker(data.id);
+            } else if (data.type === 'panTo') {
+                panTo(data.lat, data.lng, data.zoom);
+            }
+        };
+
+        // Gửi tin nhắn về React Native khi bản đồ đã sẵn sàng
+        map.on('load', function() {
+            window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'mapReady' }));
+        });
+
+        // Đảm bảo bản đồ thay đổi kích thước đúng khi WebView thay đổi
+        setTimeout(() => { map.invalidateSize(); }, 500);
+
+    </script>
+</body>
+</html>
