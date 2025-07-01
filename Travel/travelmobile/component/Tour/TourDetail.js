@@ -71,12 +71,11 @@ const TestTourDetail = ({ navigation,route }) => {
         }
         setGioKH(res.data.DepartureTime.DepartureTime)
         setAnh(res.data.album.id)
+        setImage(res.data.album.images)
+
         setComment(res.data.cmt_tour)
         setRating(res.data.rating_tour)
         setLike(res.data.like_tour)
-        
-        let res1= await APIs.get(endpoints["image"]);
-        setImage(res1.data);
         const userRating = res.data.rating_tour.find(r => r.id_user === user?.id);
         setHasRated(!!userRating);
         AsyncStorage.getItem("token").then((value)=>{
@@ -119,10 +118,9 @@ const TestTourDetail = ({ navigation,route }) => {
           );
     
           if (res.status === 201) {
-            Alert.alert("Thành công", "Đăng bài thành công!", [
-              { text: "OK", onPress: () => nav.goBack() },
-            ]);
-          }
+            // Gọi hàm loadTourDetail() trực tiếp khi điều kiện được đáp ứng
+            loadTourDetail(); 
+        }
         } catch (ex) {
           console.error("Lỗi bình luận:", ex);
         }finally {
@@ -144,33 +142,85 @@ const TestTourDetail = ({ navigation,route }) => {
     }
 
 
-    const ImageCarousel = ({ albumId, images }) => {
-        const filteredImages = images.filter(i => i.album_id === albumId);
+    // const ImageCarousel = ({ image }) => {
+    //     console.log(image)
+    //     const data= axios.get(`https://thuylinh.pythonanywhere.com/Image/${image}/`)
+    //     console.log(data);
     
-        const renderItem = ({ item }) => (
-            <Card style={styles.card}>
-                <Card.Cover
-                    source={{ uri: `https://res.cloudinary.com/dqcjhhtlm/${item.Path}` }}
-                    style={styles.cover}
-                    resizeMode="contain" 
-                />
-            </Card>
-        );
+    //     const renderItem = ({}) => (
+    //         <Card style={styles.card}>
+    //             <Card.Cover
+    //                 source={{ uri: `https://res.cloudinary.com/dqcjhhtlm/${item.Path}` }}
+    //                 style={styles.cover}
+    //                 resizeMode="contain" 
+    //             />
+    //         </Card>
+    //     );
     
-        return (
-            <View style={styles.container}>
-                <FlatList
-                    data={filteredImages}
-                    renderItem={renderItem}
-                    keyExtractor={(item) => item.id.toString()} 
-                    horizontal={true}
-                    pagingEnabled={true} 
-                    showsHorizontalScrollIndicator={true} 
-                />
-            </View>
-        );
+    //     return (
+    //         <View style={styles.container}>
+    //             <FlatList
+    //                 data={data}
+    //                 renderItem={renderItem}
+    //                 keyExtractor={(item) => item.id.toString()} 
+    //                 horizontal={true}
+    //                 pagingEnabled={true} 
+    //                 showsHorizontalScrollIndicator={true} 
+    //             />
+    //         </View>
+    //     );
+    // };
+
+
+    const ImageCarousel = ({ images }) => {
+const [imagePaths, setImagePaths] = React.useState([]);
+
+React.useEffect(() => {
+    const fetchImages = async () => {
+        if (!images || images.length === 0) {
+            setImagePaths([]);
+            return;
+        }
+        try {
+            const fetchedPaths = await Promise.all(
+                images.map(async (imageId) => {
+                    const response = await axios.get(`https://thuylinh.pythonanywhere.com/Image/${imageId}/`);
+                    return response.data.Path;
+                })
+            );
+            setImagePaths(fetchedPaths);
+        } catch (error) {
+            console.error("Lỗi khi fetch ảnh:", error);
+            setImagePaths([]);
+        }
     };
 
+    fetchImages();
+}, [images]);
+
+const renderItem = ({ item }) => (
+    <Card style={styles.card}>
+        <Card.Cover
+            source={{ uri: `https://res.cloudinary.com/dqcjhhtlm/${item}` }}
+            style={styles.cover}
+            resizeMode="contain"
+        />
+    </Card>
+);
+
+return (
+    <View style={styles.container}>
+        <FlatList
+            data={imagePaths}
+            renderItem={renderItem}
+            keyExtractor={(item, index) => index.toString()}
+            horizontal={true}
+            pagingEnabled={true}
+            showsHorizontalScrollIndicator={true}
+        />
+    </View>
+);
+    };
 
 
      const RatingCommentTabs = ({ RatingCount, commentCount, renderRatings, renderComments }) => {
@@ -324,6 +374,7 @@ const TestTourDetail = ({ navigation,route }) => {
                         <View>
                         {cmt.length > 0 ? (
                           <>
+                           <CommentInput onCommentSubmit={handleCreateNewComment} />
                               {cmt.map(c => (
                                 <View style={styles.commentContainer} key={c.id}>
                                   <Avatar.Image size={40} style={styles.avatar1} source={{ uri: `https://res.cloudinary.com/dqcjhhtlm/${c.avatar}` }} />
@@ -334,7 +385,7 @@ const TestTourDetail = ({ navigation,route }) => {
                                   {c.image ? <Image source={{ uri: `https://res.cloudinary.com/dqcjhhtlm/${c.image}` }} style={{ width: 80, height: 80 }} /> : null}
                                 </View>
                               ))}
-                            <CommentInput onCommentSubmit={handleCreateNewComment} />
+                           
                           </>
                         ) : (
                           <CommentInput onCommentSubmit={handleCreateNewComment} />
@@ -408,7 +459,7 @@ const TestTourDetail = ({ navigation,route }) => {
         
         <View style={StyleAll.container}>
               <View >
-            <BackButton  />
+            <BackButton />
         </View>
             <ScrollView
             style={[StyleAll.container, StyleAll.margin]}
@@ -447,8 +498,10 @@ const TestTourDetail = ({ navigation,route }) => {
 
 
                 {anh && image.length > 0 && (
-                                <ImageCarousel albumId={anh} images={image} />
-                            )}
+                            <ImageCarousel key={anh} albumId={anh} images={image} />
+                        )}
+
+                        
                 
                
                 <View style={{ flexDirection: 'row', alignItems: 'center' , backgroundColor:"#f6EEE8"}}>
@@ -483,7 +536,7 @@ const TestTourDetail = ({ navigation,route }) => {
 
             
 <View style={{marginTop:20, marginBottom:10}}>
-            <Button style={{width:300, marginLeft:50, backgroundColor:"#CC5500"}}  icon="bag-personal" mode="contained"  onPress={()=>navigation.navigate("booktour",{'id_tour_id':tour_id,'Adult_price':tourdetail.Adult_price,'Children_price':tourdetail.Children_price,'Tour_Name':tourdetail.Tour_Name,'lisence':lis,'DeparturePlace':noidi,'Destination':noiden,'vehicle':ptien,'DepartureDay':`${(new Date(tourdetail.DepartureDay)).toLocaleDateString()}`,'DepartureTime':gkhanh,'Days':tourdetail.Days,'Nights':tourdetail.Nights})} key={tour_id} >
+            <Button style={{width:300, marginLeft:50, backgroundColor:"#CC5500",marginBottom: 80}}  icon="bag-personal" mode="contained"  onPress={()=>navigation.navigate("booktour",{'id_tour_id':tour_id,'Adult_price':tourdetail.Adult_price,'Children_price':tourdetail.Children_price,'Tour_Name':tourdetail.Tour_Name,'lisence':lis,'DeparturePlace':noidi,'Destination':noiden,'vehicle':ptien,'DepartureDay':`${(new Date(tourdetail.DepartureDay)).toLocaleDateString()}`,'DepartureTime':gkhanh,'Days':tourdetail.Days,'Nights':tourdetail.Nights})} key={tour_id} >
             <Text style={{fontSize: 18}}>Đặt chuyến đi</Text></Button>
             </View>
             
@@ -509,7 +562,8 @@ const styles = StyleSheet.create({
         marginTop: 15,
         width: width, // Đảm bảo FlatList có chiều rộng bằng màn hình
         height: 300, 
-       backgroundColor:"#FFFAF0"
+        backgroundColor:"#FFFAF0",
+       
     },
     card: {
         width: 400, // Mỗi Card chiếm toàn bộ chiều rộng

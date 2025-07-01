@@ -62,9 +62,11 @@ const SearchTicketScreen = ({ navigation, route }) => {
         setLoadingPlaces(true);
         setErrorPlaces(null);
         try {
-            const response = await axios.get(`${API_BASE_URL}/DeparturePlaces/`);
+            const response = await axios.get(`https://thuylinh.pythonanywhere.com/DeparturePlaces/`);
             const data = response.data;
+            
             setDeparturePlaces(data);
+            
             setLoadingPlaces(false);
         } catch (e) {
             setErrorPlaces('Không thể tải danh sách điểm đi.');
@@ -77,7 +79,7 @@ const SearchTicketScreen = ({ navigation, route }) => {
         setLoadingPlaces(true);
         setErrorPlaces(null);
         try {
-            const response = await axios.get(`${API_BASE_URL}/DestinationPlaces/`);
+            const response = await axios.get(`https://thuylinh.pythonanywhere.com/DestinationPlaces/`);
             const data = response.data;
             setDestinationPlaces(data);
             setLoadingPlaces(false);
@@ -213,17 +215,19 @@ const SearchTicketScreen = ({ navigation, route }) => {
                     ) : errorPlaces ? (
                         <Text style={styles.errorText}>{errorPlaces}</Text>
                     ) : (
-                        <Picker
-                            selectedValue={departurePlace}
-                            style={styles.picker}
-                            onValueChange={(itemValue) => setDeparturePlace(itemValue)}
-                            dropdownIconColor={styles.pickerIcon.color}
-                        >
-                            <Picker.Item label="Chọn điểm đi" value="" />
-                            {departurePlaces.map((place, index) => (
-                                <Picker.Item key={index} label={place} value={place} />
-                            ))}
-                        </Picker>
+                        
+
+                                            <Picker
+                        selectedValue={departurePlace}
+                        style={styles.picker}
+                        onValueChange={(itemValue) => setDeparturePlace(itemValue)}
+                        dropdownIconColor={styles.pickerIcon.color}
+                    >
+                        <Picker.Item label="Chọn điểm đi" value="" />
+                        {departurePlaces.map((place, index) => (
+                            <Picker.Item key={place.id} label={place.name} value={place.name} /> // <-- Sửa ở đây
+                        ))}
+                    </Picker>
                     )}
                 </View>
 
@@ -242,7 +246,7 @@ const SearchTicketScreen = ({ navigation, route }) => {
                         >
                             <Picker.Item label="Chọn điểm đến" value="" />
                             {destinationPlaces.map((place, index) => (
-                                <Picker.Item key={index} label={place} value={place} />
+                                <Picker.Item key={place.id} label={place.name} value={place.name} /> // <-- Sửa ở đây
                             ))}
                         </Picker>
                     )}

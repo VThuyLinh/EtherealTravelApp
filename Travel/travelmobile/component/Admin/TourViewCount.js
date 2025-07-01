@@ -338,7 +338,7 @@ const TourViewCountReportScreen = () => {
     return (
         <SafeAreaView style={styles.safeArea}>
             <View style={styles.headerContainer}>
-                <BackButton destination={'Chartfull'} /> 
+                <BackButton destination={'Admin'} /> 
             </View>
             <ScrollView
                 contentContainerStyle={styles.container}

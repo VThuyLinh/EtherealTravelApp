@@ -27,7 +27,7 @@ const TourUserCountsScreen = () => {
 
       // Chuyển đổi dữ liệu cho biểu đồ
       const labels = apiData.map(item => item.id_tour_id__Tour_Name);
-      const uniqueUsers = apiData.map(item => item.unique_users);
+      const uniqueUsers = apiData.map(item => item.total_bookings);
 
       setData({ labels, uniqueUsers });
     } catch (err) {

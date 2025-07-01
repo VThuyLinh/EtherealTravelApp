@@ -30,7 +30,7 @@ const AdminScreen = () => {
           {/* Card: Quản lý Tour */}
           <TouchableOpacity
             style={styles.cardWrapper}
-            onPress={() => navigateToManagement('ManageTours')}
+            onPress={() => navigateToManagement('TourViewCount')}
             activeOpacity={0.7} // Thêm hiệu ứng chạm
           >
             <View style={styles.card}> {/* Thay Card bằng View */}

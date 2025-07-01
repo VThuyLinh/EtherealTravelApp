@@ -118,6 +118,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     maxWidth: '80%',
     alignSelf: 'flex-start',
+    
   },
   currentUserMessage: {
     backgroundColor: '#dcf8c6',
@@ -132,6 +133,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
     flexShrink: 1,
+    
   },
   username: {
     fontSize: 12,
@@ -157,6 +159,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderTopWidth: 1,
     borderTopColor: '#ccc',
+    
   },
   input: {
     flex: 1,
@@ -168,6 +171,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     fontSize: 16,
     maxHeight: 100,
+    
   },
   avatar: {
     width: 30,

@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
         flex: 1,
         // Đặt border để dễ thấy ranh giới của WebView
         // borderWidth: 1,
-        // borderColor: 'blue',
+        // borderColor: 'blue', 
     },
 });
 

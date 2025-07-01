@@ -100,7 +100,7 @@ const ChatScreen = ({ navigation }) => {
         <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 100}
-      style={styles.container}>
+      style={styles.container}> 
         <View style={styles.header}>
           <TouchableOpacity onPress={handleNewChat} style={styles.newChatButton}>
             <Text style={{ fontSize: 30, color: 'white' }}> +<Icon source="pen" size={30} color="white" /></Text>
